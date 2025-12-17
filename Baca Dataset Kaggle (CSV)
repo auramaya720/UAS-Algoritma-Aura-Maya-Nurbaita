@@ -1,0 +1,33 @@
+void bacaCSV(Node* &root) {
+    ifstream file("StudentsPerformance.csv");
+    string line, temp;
+    int id = 1;
+
+    getline(file, line); // skip header
+
+    while (getline(file, line)) {
+        stringstream ss(line);
+
+        Mahasiswa m;
+        m.student_id = id++;
+
+        getline(ss, m.gender, ','); // gender
+        getline(ss, temp, ','); // skip race
+        getline(ss, temp, ','); // skip parental
+        getline(ss, temp, ','); // skip lunch
+        getline(ss, temp, ','); // skip prep
+
+        getline(ss, temp, ',');
+        m.math_score = stoi(temp);
+
+        getline(ss, temp, ',');
+        m.reading_score = stoi(temp);
+
+        getline(ss, temp, ',');
+        m.writing_score = stoi(temp);
+
+        root = tambahDataMahasiswa(root, m);
+    }
+
+    file.close();
+}
